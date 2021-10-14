@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pointstudy/UI/Pages/loginPage.dart';
+import 'package:pointstudy/UI/Pages/loginPageOptions.dart';
 
 class CategoriasPage extends StatelessWidget {
   static String id = 'CategoriasPage';
@@ -52,9 +52,6 @@ class CategoriasPage extends StatelessWidget {
                     SizedBox(
                       height: 360.0,
                     ),
-                    pie_de_pagina(
-                      context,
-                    )
                   ],
                 ),
               ),

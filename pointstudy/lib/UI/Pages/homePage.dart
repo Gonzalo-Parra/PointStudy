@@ -1,6 +1,8 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:pointstudy/UI/Pages/loginPage.dart';
+import 'package:pointstudy/UI/Pages/loginPageOptions.dart';
 
 class HomePage extends StatelessWidget {
   static String id = 'HomePage';
@@ -57,9 +59,6 @@ class HomePage extends StatelessWidget {
                     cerrarSesionButton(context),
                     SizedBox(
                       height: 25.0,
-                    ),
-                    pie_de_pagina(
-                      context,
                     ),
                   ],
                 ),

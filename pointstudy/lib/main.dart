@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pointstudy/UI/Pages/categoriasPage.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
+import 'package:pointstudy/UI/Pages/loginPageOptions.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       initialRoute: LoginPage.id,
       routes: {
         LoginPage.id: (context) => LoginPage(),
+        LoginPageOptions.id: (context) => LoginPageOptions(),
         HomePage.id: (context) => HomePage(),
         CategoriasPage.id: (context) => CategoriasPage(),
       },
