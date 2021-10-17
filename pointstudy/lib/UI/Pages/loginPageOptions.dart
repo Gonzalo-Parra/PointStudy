@@ -35,7 +35,6 @@ class LoginPageOptions extends StatelessWidget {
             SizedBox(
               height: 150.0,
             ),
-            pie_de_pagina(context),
           ],
         ),
       ),
@@ -80,21 +79,6 @@ class LoginPageOptions extends StatelessWidget {
           borderRadius: BorderRadius.circular(50.0),
         ),
         backgroundColor: Color(0xff0DDF9F),
-      ),
-    );
-  }
-
-  Widget pie_de_pagina(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Text(
-        'Copyright © Gonzalo Parra',
-        style: TextStyle(
-          color: Color(0xffffffff),
-          fontSize: 12.0,
-          fontWeight: FontWeight.w100,
-          fontStyle: FontStyle.italic,
-        ),
       ),
     );
   }
