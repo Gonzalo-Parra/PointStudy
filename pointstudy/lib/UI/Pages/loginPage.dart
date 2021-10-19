@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -8,15 +9,22 @@ class LoginPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Color(0xff642DD5),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
+            padding: EdgeInsets.symmetric(
+              horizontal: 50.0,
+            ),
             children: [
               SizedBox(
-                height: 20,
+                height: 80.0,
               ),
-              Logotipo(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Logotipo(),
+                ],
+              ),
               SizedBox(
-                height: 50.0,
+                height: 80.0,
               ),
               _textFielUser(),
               _checkBox(),
@@ -24,7 +32,13 @@ class LoginPage extends StatelessWidget {
                 height: 10.0,
               ),
               _textFielPassword(),
-              _recuperarPassword(),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _recuperarPassword(),
+                ],
+              ),
               SizedBox(
                 height: 30.0,
               ),
@@ -54,7 +68,7 @@ class LoginPage extends StatelessWidget {
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.white,
-        fontSize: 50.0,
+        fontSize: 40.0,
         fontWeight: FontWeight.bold,
         fontStyle: FontStyle.italic,
       ),
@@ -62,62 +76,17 @@ class LoginPage extends StatelessWidget {
   }
 
   _textFielUser() {
-    return Container(
-      height: 40.0,
-      margin: EdgeInsets.symmetric(
-        horizontal: 70.0,
-      ),
-      decoration: BoxDecoration(
-        color: Color(0xffffffff),
-        borderRadius: BorderRadius.circular(50.0),
-      ),
-      child: TextField(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Color(0xff0DDF9F),
-              width: 3.0,
-              style: BorderStyle.solid,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-          labelText: 'Nombre Usuario / E-mail',
-        ),
-        style: TextStyle(
-          color: Color(0xff716D6D),
-          fontSize: 15.0,
-        ),
-      ),
+    return textFieldGeneral(
+      labelText: 'Nombre Usuario / E-mail',
+      onChanged: (value) {},
     );
   }
 
   _textFielPassword() {
-    return Container(
-      height: 40.0,
-      margin: EdgeInsets.symmetric(
-        horizontal: 70.0,
-      ),
-      decoration: BoxDecoration(
-        color: Color(0xffffffff),
-        borderRadius: BorderRadius.circular(50.0),
-      ),
-      child: TextField(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Color(0xff0DDF9F),
-              width: 3.0,
-              style: BorderStyle.solid,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-          labelText: 'Contraseña',
-        ),
-        style: TextStyle(
-          color: Color(0xff716D6D),
-          fontSize: 15.0,
-        ),
-      ),
+    return textFieldGeneral(
+      labelText: 'Contraseña',
+      onChanged: (value) {},
+      obcureText: true,
     );
   }
 
@@ -154,51 +123,28 @@ class LoginPage extends StatelessWidget {
         '¿Olvidaste tu contraseña?',
         style: TextStyle(
           color: Color(0xffffffff),
+          fontWeight: FontWeight.normal,
         ),
       ),
     );
   }
 
   Widget _iniciarSesionButton() {
-    return TextButton(
+    return buttonGeneral(
+      text: 'Iniciar sesión',
       onPressed: () {},
-      child: Text(
-        'Iniciar sesión',
-        style: TextStyle(
-          color: Color(0xffffffff),
-        ),
-      ),
-      style: TextButton.styleFrom(
-        fixedSize: Size(200.0, 40.0),
-        backgroundColor: Color(0xff0DDF9F),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.0),
-        ),
-      ),
+      BGcolor: (0xff0DDF9F),
+      borderColor: (0xff0DDF9F),
     );
   }
 
   _continuarFormaButton() {
-    return TextButton(
+    return buttonGeneral(
+      text: 'Continuar de otra forma',
       onPressed: () {},
-      child: Text(
-        'Continuar de otra forma',
-        style: TextStyle(
-          color: Color(0xff716D6D),
-        ),
-      ),
-      style: TextButton.styleFrom(
-        fixedSize: Size(200.0, 40.0),
-        backgroundColor: Color(0xffffffff),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.0),
-          side: BorderSide(
-            color: Color(0xff0DDF9F),
-            width: 2.0,
-            style: BorderStyle.solid,
-          ),
-        ),
-      ),
+      BGcolor: (0xffffffff),
+      borderColor: (0xff0DDF9F),
+      fontColor: (0xff716D6D),
     );
   }
 
@@ -209,6 +155,7 @@ class LoginPage extends StatelessWidget {
         '¿No tienes una cuenta? Resgístrate',
         style: TextStyle(
           color: Color(0xffffffff),
+          fontWeight: FontWeight.normal,
         ),
       ),
     );
@@ -224,6 +171,93 @@ class LoginPage extends StatelessWidget {
           fontSize: 12.0,
           fontWeight: FontWeight.w100,
           fontStyle: FontStyle.italic,
+        ),
+      ),
+    );
+  }
+}
+
+class textFieldGeneral extends StatelessWidget {
+  final String labelText;
+  final onChanged;
+  final bool obcureText;
+  final TextInputType keyboarType;
+  const textFieldGeneral({
+    @required this.labelText = '',
+    @required this.onChanged = '',
+    this.obcureText = false,
+    this.keyboarType = TextInputType.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40.0,
+      decoration: BoxDecoration(
+        color: Color(0xffffffff),
+        borderRadius: BorderRadius.circular(50.0),
+      ),
+      child: TextField(
+        keyboardType: keyboarType,
+        onChanged: onChanged,
+        obscureText: obcureText,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color(0xff0DDF9F),
+              width: 3.0,
+              style: BorderStyle.solid,
+            ),
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+          labelText: labelText,
+        ),
+        style: TextStyle(
+          color: Color(0xff716D6D),
+          fontSize: 15.0,
+        ),
+      ),
+    );
+  }
+}
+
+class buttonGeneral extends StatelessWidget {
+  final String text;
+  final onPressed;
+  final BGcolor;
+  final borderColor;
+  final fontColor;
+  final FontWeight fontGrosor;
+  const buttonGeneral({
+    @required this.text = '',
+    @required this.onPressed = '',
+    this.BGcolor,
+    this.borderColor,
+    this.fontColor = (0xffffffff),
+    this.fontGrosor = FontWeight.normal,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Color(fontColor),
+          fontWeight: fontGrosor,
+        ),
+      ),
+      style: TextButton.styleFrom(
+        fixedSize: Size(200.0, 40.0),
+        backgroundColor: Color(BGcolor),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.0),
+          side: BorderSide(
+            color: Color(borderColor),
+            width: 2.0,
+            style: BorderStyle.solid,
+          ),
         ),
       ),
     );

@@ -1,8 +1,7 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:pointstudy/UI/Pages/loginPageOptions.dart';
+import 'package:pointstudy/UI/Pages/loginPage.dart';
+
+var login = new LoginPage();
 
 class HomePage extends StatelessWidget {
   static String id = 'HomePage';
@@ -25,17 +24,13 @@ class HomePage extends StatelessWidget {
               icon: Icon(Icons.search),
               color: Color(0xffffffff),
             ),
-            IconButton(
-              onPressed: () {},
-              tooltip: 'Atras',
-              icon: Icon(Icons.arrow_back_ios_new),
-              color: Color(0xffffffff),
-              iconSize: 20.0,
-            )
           ],
         ),
         drawer: Drawer(
           child: ListView(
+            padding: EdgeInsets.symmetric(
+              vertical: 10.0,
+            ),
             children: [
               SizedBox(
                 height: 20.0,
@@ -43,23 +38,12 @@ class HomePage extends StatelessWidget {
               Center(
                 child: Column(
                   children: [
-                    Text(
-                      'POINT STUDY',
-                      style: TextStyle(
-                        color: Color(0xff716D6D),
-                        fontSize: 25.0,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    categoriasButton(context),
+                    login.Logotipo(),
+                    categoriasButton(),
                     SizedBox(
-                      height: 360.0,
+                      height: 500.0,
                     ),
-                    cerrarSesionButton(context),
-                    SizedBox(
-                      height: 25.0,
-                    ),
+                    cerrarSesionButton(),
                   ],
                 ),
               ),
@@ -70,7 +54,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget categoriasButton(context) {
+  Widget categoriasButton() {
     return ListTile(
       onTap: () {},
       title: Text(
@@ -88,23 +72,12 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget cerrarSesionButton(context) {
-    return TextButton(
+  Widget cerrarSesionButton() {
+    return buttonGeneral(
+      text: 'Cerrar sesión',
       onPressed: () {},
-      child: Text(
-        'Cerrar sesión',
-        style: TextStyle(
-          color: Color(0xffffffff),
-          fontSize: 15.0,
-        ),
-      ),
-      style: TextButton.styleFrom(
-        backgroundColor: Color(0xffDF0D0D),
-        fixedSize: Size(200.0, 40.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.0),
-        ),
-      ),
+      BGcolor: (0xffDF0D0D),
+      borderColor: (0xffDF0D0D),
     );
   }
 }
