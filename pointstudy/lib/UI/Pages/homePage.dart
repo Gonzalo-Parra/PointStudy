@@ -18,12 +18,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           actions: [
-            IconButton(
-              onPressed: () {},
-              tooltip: 'Buscar escuelas',
-              icon: Icon(Icons.search),
-              color: Color(0xffffffff),
-            ),
+            buscarEscuelasIcon(),
           ],
         ),
         drawer: Drawer(
@@ -40,8 +35,9 @@ class HomePage extends StatelessWidget {
                   children: [
                     login.Logotipo(),
                     categoriasButton(),
+                    configuracionButton(),
                     SizedBox(
-                      height: 500.0,
+                      height: 450.0,
                     ),
                     cerrarSesionButton(),
                   ],
@@ -51,6 +47,15 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buscarEscuelasIcon() {
+    return iconsGeneral(
+      icon: Icon(Icons.search),
+      onPressed: () {},
+      tooltip: 'Buscar',
+      color: (0xffffffff),
     );
   }
 
@@ -72,12 +77,54 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  configuracionButton() {
+    return ListTile(
+      onTap: () {},
+      title: Text(
+        'CONFIGURACIÓN',
+        style: TextStyle(
+          color: Color(0xff716D6D),
+          fontWeight: FontWeight.bold,
+          fontSize: 15.0,
+        ),
+      ),
+      leading: Icon(
+        Icons.keyboard_arrow_down_outlined,
+        color: Color(0xff716D6D),
+      ),
+    );
+  }
+
   Widget cerrarSesionButton() {
     return buttonGeneral(
       text: 'Cerrar sesión',
       onPressed: () {},
       BGcolor: (0xffDF0D0D),
       borderColor: (0xffDF0D0D),
+    );
+  }
+}
+
+class iconsGeneral extends StatelessWidget {
+  final icon;
+  final onPressed;
+  final String tooltip;
+  final color;
+
+  @override
+  const iconsGeneral({
+    @required this.icon,
+    @required this.onPressed,
+    this.tooltip = '',
+    this.color = (0xffffffff),
+  });
+
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: icon,
+      tooltip: tooltip,
+      color: Color(color),
     );
   }
 }
