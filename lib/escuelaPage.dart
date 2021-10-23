@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
 var login = new EscuelaPage();
 
 class EscuelaPage extends StatelessWidget {
   static String id = 'EscuelaPage';
+  List<String> images = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -17,6 +19,9 @@ class EscuelaPage extends StatelessWidget {
             ),
             children: [
               galeriaFotos(),
+              SizedBox(
+                height: 35.0,
+              ),
               nombreEscuela(),
               direccionEscuela(),
               SizedBox(
@@ -39,7 +44,23 @@ class EscuelaPage extends StatelessWidget {
 
   Widget galeriaFotos() {
     return Container(
+      width: double.infinity,
       height: 250.0,
+      child: Swiper(
+        itemBuilder: (BuildContext context, int index) {
+          return new Image.network(
+            images[index],
+            fit: BoxFit.fill,
+          );
+        },
+        itemCount: 5,
+        pagination: new SwiperPagination(),
+        control: new SwiperControl(
+          color: Color(0xff716D6D),
+          iconPrevious: Icons.arrow_back_ios_new_rounded,
+          iconNext: Icons.arrow_forward_ios_rounded,
+        ),
+      ),
     );
   }
 
