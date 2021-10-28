@@ -20,7 +20,7 @@ class EscuelaPage extends StatelessWidget {
             children: [
               galeriaFotos(),
               SizedBox(
-                height: 35.0,
+                height: 30.0,
               ),
               nombreEscuela(),
               direccionEscuela(),
