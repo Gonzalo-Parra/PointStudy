@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
 
 var login = new LoginPage();
@@ -23,11 +24,11 @@ class LoginPageOptions extends StatelessWidget {
             SizedBox(
               height: 175.0,
             ),
-            _inicio_sesion_facebok(),
+            _inicio_sesion_facebok(context),
             SizedBox(
               height: 20.0,
             ),
-            _inicio_sesion_google(),
+            _inicio_sesion_google(context),
             SizedBox(
               height: 260.0,
             ),
@@ -38,19 +39,25 @@ class LoginPageOptions extends StatelessWidget {
     ));
   }
 
-  Widget _inicio_sesion_facebok() {
+  Widget _inicio_sesion_facebok(context) {
     return buttonGeneral(
       text: 'Continuar con Facebook',
-      onPressed: () {},
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (__) => HomePage());
+        Navigator.pushReplacement(context, route);
+      },
       BGcolor: (0xff0DDF9F),
       borderColor: (0xff0DDF9F),
     );
   }
 
-  Widget _inicio_sesion_google() {
+  Widget _inicio_sesion_google(context) {
     return buttonGeneral(
       text: 'Continuar con Google',
-      onPressed: () {},
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (__) => HomePage());
+        Navigator.pushReplacement(context, route);
+      },
       BGcolor: (0xff0DDF9F),
       borderColor: (0xff0DDF9F),
     );

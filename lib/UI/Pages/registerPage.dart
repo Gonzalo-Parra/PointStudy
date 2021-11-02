@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
 
 var login = new LoginPage();
@@ -46,7 +47,7 @@ class RegisterPage extends StatelessWidget {
             SizedBox(
               height: 50.0,
             ),
-            _registarmeButton(),
+            _registarmeButton(context),
             SizedBox(
               height: 85.0,
             ),
@@ -102,10 +103,13 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Widget _registarmeButton() {
+  Widget _registarmeButton(context) {
     return buttonGeneral(
       text: 'Registrarme',
-      onPressed: () {},
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (__) => HomePage());
+        Navigator.pushReplacement(context, route);
+      },
       fontGrosor: FontWeight.normal,
       BGcolor: (0xff0DDF9F),
       borderColor: (0xff0DDF9F),

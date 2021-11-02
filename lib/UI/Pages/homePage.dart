@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                     SizedBox(
                       height: 450.0,
                     ),
-                    cerrarSesionButton(),
+                    cerrarSesionButton(context),
                   ],
                 ),
               ),
@@ -53,7 +53,14 @@ class HomePage extends StatelessWidget {
   Widget buscarEscuelasIcon() {
     return iconsGeneral(
       icon: Icon(Icons.search),
-      onPressed: () {},
+      onPressed: () {
+        Container(
+          width: 100.0,
+          height: 30.0,
+          color: Color(0xffffffff),
+          child: TextField(),
+        );
+      },
       tooltip: 'Buscar',
       color: (0xffffffff),
     );
@@ -95,10 +102,13 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget cerrarSesionButton() {
+  Widget cerrarSesionButton(context) {
     return buttonGeneral(
       text: 'Cerrar sesión',
-      onPressed: () {},
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (__) => LoginPage());
+        Navigator.pushReplacement(context, route);
+      },
       BGcolor: (0xffDF0D0D),
       borderColor: (0xffDF0D0D),
     );

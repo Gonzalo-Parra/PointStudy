@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
+import 'package:pointstudy/UI/Pages/loginPageOptions.dart';
+import 'package:pointstudy/UI/Pages/passwordPage.dart';
+import 'package:pointstudy/UI/Pages/registerPage.dart';
 
 class LoginPage extends StatelessWidget {
   static String id = "LoginPage";
@@ -37,21 +40,21 @@ class LoginPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  _recuperarPassword(),
+                  _recuperarPassword(context),
                 ],
               ),
               SizedBox(
                 height: 30.0,
               ),
-              _iniciarSesionButton(),
+              _iniciarSesionButton(context),
               SizedBox(
                 height: 15.0,
               ),
-              _continuarFormaButton(),
+              _continuarFormaButton(context),
               SizedBox(
                 height: 45.0,
               ),
-              _registrarse(),
+              _registrarse(context),
               SizedBox(
                 height: 45.0,
               ),
@@ -63,7 +66,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Logotipo() {
+  Widget Logotipo() {
     return Text(
       "POINT STUDY",
       textAlign: TextAlign.center,
@@ -76,14 +79,14 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _textFielUser() {
+  Widget _textFielUser() {
     return textFieldGeneral(
       labelText: 'Nombre Usuario / E-mail',
       onChanged: (value) {},
     );
   }
 
-  _textFielPassword() {
+  Widget _textFielPassword() {
     return textFieldGeneral(
       labelText: 'Contraseña',
       onChanged: (value) {},
@@ -91,7 +94,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _checkBox() {
+  Widget _checkBox() {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -117,9 +120,12 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _recuperarPassword() {
-    return TextButton(
-      onPressed: () {},
+  Widget _recuperarPassword(context) {
+    return CupertinoButton(
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (__) => PasswordPage());
+        Navigator.push(context, route);
+      },
       child: Text(
         '¿Olvidaste tu contraseña?',
         style: TextStyle(
@@ -130,28 +136,42 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _iniciarSesionButton() {
+  Widget _iniciarSesionButton(context) {
     return buttonGeneral(
       text: 'Iniciar sesión',
-      onPressed: () {},
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (__) => HomePage());
+        Navigator.canPop(context);
+        if (Navigator.canPop(context)) {
+          Navigator.pushReplacement(context, route);
+        }
+        // ignore: empty_statements
+        ;
+      },
       BGcolor: (0xff0DDF9F),
       borderColor: (0xff0DDF9F),
     );
   }
 
-  _continuarFormaButton() {
+  Widget _continuarFormaButton(context) {
     return buttonGeneral(
       text: 'Continuar de otra forma',
-      onPressed: () {},
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (__) => LoginPageOptions());
+        Navigator.push(context, route);
+      },
       BGcolor: (0xffffffff),
       borderColor: (0xff0DDF9F),
       fontColor: (0xff716D6D),
     );
   }
 
-  Widget _registrarse() {
-    return TextButton(
-      onPressed: () {},
+  Widget _registrarse(context) {
+    return CupertinoButton(
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (__) => RegisterPage());
+        Navigator.push(context, route);
+      },
       child: Text(
         '¿No tienes una cuenta? Resgístrate',
         style: TextStyle(

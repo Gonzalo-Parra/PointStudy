@@ -45,7 +45,7 @@ class CategoriasPage extends StatelessWidget {
                     SizedBox(
                       height: 450.0,
                     ),
-                    home.cerrarSesionButton(),
+                    home.cerrarSesionButton(context),
                   ],
                 ),
               ),
