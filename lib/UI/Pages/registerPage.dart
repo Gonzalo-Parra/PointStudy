@@ -11,48 +11,53 @@ class RegisterPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xff642DD5),
-        body: ListView(
-          padding: EdgeInsets.symmetric(
-            horizontal: 50.0,
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: ListView(
+            padding: EdgeInsets.symmetric(
+              horizontal: 50.0,
+            ),
+            children: [
+              SizedBox(
+                height: 80.0,
+              ),
+              login.Logotipo(),
+              SizedBox(
+                height: 50.0,
+              ),
+              _textFieldNombre(),
+              SizedBox(
+                height: 15.0,
+              ),
+              _textFieldApellido(),
+              SizedBox(
+                height: 15.0,
+              ),
+              _textFieldNombreUs(),
+              SizedBox(
+                height: 15.0,
+              ),
+              _textFieldEmail(),
+              SizedBox(
+                height: 15.0,
+              ),
+              _textFieldPassword(),
+              SizedBox(
+                height: 15.0,
+              ),
+              _textFieldRepPassword(),
+              SizedBox(
+                height: 50.0,
+              ),
+              _registarmeButton(context),
+              SizedBox(
+                height: 85.0,
+              ),
+              login.pie_de_pagina(),
+            ],
           ),
-          children: [
-            SizedBox(
-              height: 80.0,
-            ),
-            login.Logotipo(),
-            SizedBox(
-              height: 50.0,
-            ),
-            _textFieldNombre(),
-            SizedBox(
-              height: 15.0,
-            ),
-            _textFieldApellido(),
-            SizedBox(
-              height: 15.0,
-            ),
-            _textFieldNombreUs(),
-            SizedBox(
-              height: 15.0,
-            ),
-            _textFieldEmail(),
-            SizedBox(
-              height: 15.0,
-            ),
-            _textFieldPassword(),
-            SizedBox(
-              height: 15.0,
-            ),
-            _textFieldRepPassword(),
-            SizedBox(
-              height: 50.0,
-            ),
-            _registarmeButton(context),
-            SizedBox(
-              height: 85.0,
-            ),
-            login.pie_de_pagina(),
-          ],
         ),
       ),
     );

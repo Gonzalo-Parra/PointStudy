@@ -12,54 +12,53 @@ class LoginPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xff642DD5),
-        body: Center(
-          child: ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: 50.0,
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Center(
+            child: ListView(
+              padding: EdgeInsets.symmetric(
+                horizontal: 50.0,
+              ),
+              children: [
+                SizedBox(
+                  height: 80.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Logotipo(),
+                  ],
+                ),
+                SizedBox(
+                  height: 80.0,
+                ),
+                _textFielUser(),
+                _checkBox(),
+                SizedBox(
+                  height: 10.0,
+                ),
+                _textFielPassword(),
+                _recuperarPassword(context),
+                SizedBox(
+                  height: 30.0,
+                ),
+                _iniciarSesionButton(context),
+                SizedBox(
+                  height: 15.0,
+                ),
+                _continuarFormaButton(context),
+                SizedBox(
+                  height: 45.0,
+                ),
+                _registrarse(context),
+                SizedBox(
+                  height: 45.0,
+                ),
+                pie_de_pagina(),
+              ],
             ),
-            children: [
-              SizedBox(
-                height: 80.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Logotipo(),
-                ],
-              ),
-              SizedBox(
-                height: 80.0,
-              ),
-              _textFielUser(),
-              _checkBox(),
-              SizedBox(
-                height: 10.0,
-              ),
-              _textFielPassword(),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  _recuperarPassword(context),
-                ],
-              ),
-              SizedBox(
-                height: 30.0,
-              ),
-              _iniciarSesionButton(context),
-              SizedBox(
-                height: 15.0,
-              ),
-              _continuarFormaButton(context),
-              SizedBox(
-                height: 45.0,
-              ),
-              _registrarse(context),
-              SizedBox(
-                height: 45.0,
-              ),
-              pie_de_pagina(),
-            ],
           ),
         ),
       ),
@@ -104,9 +103,6 @@ class LoginPage extends StatelessWidget {
             color: Color(0xffffffff),
           ),
         ),
-        SizedBox(
-          width: 5.0,
-        ),
         Checkbox(
           value: false,
           onChanged: (valueIn) {},
@@ -121,18 +117,24 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _recuperarPassword(context) {
-    return CupertinoButton(
-      onPressed: () {
-        Route route = MaterialPageRoute(builder: (__) => PasswordPage());
-        Navigator.push(context, route);
-      },
-      child: Text(
-        '¿Olvidaste tu contraseña?',
-        style: TextStyle(
-          color: Color(0xffffffff),
-          fontWeight: FontWeight.normal,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CupertinoButton(
+          onPressed: () {
+            Route route = MaterialPageRoute(builder: (__) => PasswordPage());
+            Navigator.push(context, route);
+          },
+          child: Text(
+            '¿Olvidaste tu contraseña?',
+            style: TextStyle(
+              color: Color(0xffffffff),
+              fontWeight: FontWeight.normal,
+              fontSize: 15.0,
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -141,12 +143,7 @@ class LoginPage extends StatelessWidget {
       text: 'Iniciar sesión',
       onPressed: () {
         Route route = MaterialPageRoute(builder: (__) => HomePage());
-        Navigator.canPop(context);
-        if (Navigator.canPop(context)) {
-          Navigator.pushReplacement(context, route);
-        }
-        // ignore: empty_statements
-        ;
+        Navigator.pushReplacement(context, route);
       },
       BGcolor: (0xff0DDF9F),
       borderColor: (0xff0DDF9F),
@@ -167,18 +164,24 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _registrarse(context) {
-    return CupertinoButton(
-      onPressed: () {
-        Route route = MaterialPageRoute(builder: (__) => RegisterPage());
-        Navigator.push(context, route);
-      },
-      child: Text(
-        '¿No tienes una cuenta? Resgístrate',
-        style: TextStyle(
-          color: Color(0xffffffff),
-          fontWeight: FontWeight.normal,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CupertinoButton(
+          onPressed: () {
+            Route route = MaterialPageRoute(builder: (__) => RegisterPage());
+            Navigator.push(context, route);
+          },
+          child: Text(
+            '¿No tienes una cuenta? Resgístrate',
+            style: TextStyle(
+              color: Color(0xffffffff),
+              fontWeight: FontWeight.normal,
+              fontSize: 15.0,
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -223,15 +226,31 @@ class textFieldGeneral extends StatelessWidget {
         onChanged: onChanged,
         obscureText: obcureText,
         decoration: InputDecoration(
-          border: OutlineInputBorder(
+          labelText: labelText,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(50.0),
             borderSide: BorderSide(
               color: Color(0xff0DDF9F),
-              width: 3.0,
+              width: 2.0,
               style: BorderStyle.solid,
             ),
-            borderRadius: BorderRadius.circular(50.0),
           ),
-          labelText: labelText,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(50.0),
+            borderSide: BorderSide(
+              color: Color(0xff0DDF9F),
+              width: 2.0,
+              style: BorderStyle.solid,
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(50.0),
+            borderSide: BorderSide(
+              color: Color(0xff0DDF9F),
+              width: 5.0,
+              style: BorderStyle.solid,
+            ),
+          ),
         ),
         style: TextStyle(
           color: Color(0xff716D6D),
