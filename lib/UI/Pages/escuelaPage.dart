@@ -65,8 +65,14 @@ class _EscuelaPageState extends State<EscuelaPage> {
         'Técnico Programador',
         'Desarrollo Web'),
   ];
-  List categorias = ['PRIMARIO', 'SECUNDARIO', 'TERCEARIO', 'ESPECIALES'];
-  String dropdownValue = 'PRIMARIO';
+  List categorias = [
+    'TODAS',
+    'PRIMARIA',
+    'SECUNDARIA',
+    'TERCIARIA',
+    'ESPECIALES'
+  ];
+  String dropdownValue = 'TODAS';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -86,35 +92,7 @@ class _EscuelaPageState extends State<EscuelaPage> {
             SizedBox(
               height: 50.0,
             ),
-            ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: escuelas.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: Color(0xff716D6D),
-                      width: 0.5,
-                    ),
-                  ),
-                  onTap: () {
-                    Route route =
-                        MaterialPageRoute(builder: (_) => ArticuloEscPage());
-                    Navigator.push(context, route);
-                  },
-                  title: Text(
-                    escuelas[index].name,
-                    style: TextStyle(
-                      color: Color(0xff716D6D),
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  trailing: Icon(Icons.keyboard_arrow_right_outlined),
-                );
-              },
-            ),
+            listSchool(),
           ],
         ),
       ),
@@ -153,17 +131,17 @@ class _EscuelaPageState extends State<EscuelaPage> {
               width: 1.0,
             ),
           ),
-          child: DropdownButton(
+          child: DropdownButton<String>(
             hint: Text("Filtré por categoría"),
             onChanged: (newValue) {
               setState(() {
-                //dropdownValue = newValue;
+                dropdownValue = newValue!;
               });
             },
             value: dropdownValue,
             items: categorias.map(
               (value) {
-                return DropdownMenuItem(
+                return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
                 );
@@ -189,6 +167,37 @@ class _EscuelaPageState extends State<EscuelaPage> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget listSchool() {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: escuelas.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: Color(0xff716D6D),
+              width: 0.5,
+            ),
+          ),
+          onTap: () {
+            Route route = MaterialPageRoute(builder: (_) => ArticuloEscPage());
+            Navigator.push(context, route);
+          },
+          title: Text(
+            escuelas[index].name,
+            style: TextStyle(
+              color: Color(0xff716D6D),
+              fontSize: 25.0,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          trailing: Icon(Icons.keyboard_arrow_right_outlined),
+        );
+      },
     );
   }
 }

@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 80.0,
+                  height: 100.0,
                 ),
                 _textFielUser(),
                 //_checkBox(),
@@ -50,11 +50,11 @@ class LoginPage extends StatelessWidget {
                 ),
                 _continuarFormaButton(context),
                 SizedBox(
-                  height: 45.0,
+                  height: 50.0,
                 ),
                 _registrarse(context),
                 SizedBox(
-                  height: 80.0,
+                  height: 55.0,
                 ),
                 pie_de_pagina(),
               ],
