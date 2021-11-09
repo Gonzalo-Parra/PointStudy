@@ -4,8 +4,8 @@ import 'package:pointstudy/UI/Pages/loginPage.dart';
 import 'package:pointstudy/UI/Pages/loginPageOptions.dart';
 import 'package:pointstudy/UI/Pages/registerPage.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
-import 'package:pointstudy/UI/Pages/categoriasPage.dart';
-import 'package:pointstudy/escuelaPage.dart';
+import 'package:pointstudy/UI/Pages/escuelaPage.dart';
+import 'package:pointstudy/articuloEscPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
         RegisterPage.id: (context) => RegisterPage(),
         PasswordPage.id: (context) => PasswordPage(),
         HomePage.id: (context) => HomePage(),
-        CategoriasPage.id: (context) => CategoriasPage(),
         EscuelaPage.id: (context) => EscuelaPage(),
+        ArticuloEscPage.id: (context) => ArticuloEscPage(),
       },
     );
   }

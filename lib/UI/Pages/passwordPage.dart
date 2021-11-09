@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
-import 'package:pointstudy/escuelaPage.dart';
+import 'package:pointstudy/articuloEscPage.dart';
 
 var login = new LoginPage();
 
@@ -21,9 +22,17 @@ class PasswordPage extends StatelessWidget {
               SizedBox(
                 height: 80.0,
               ),
-              login.Logotipo(),
+              Text(
+                'RECUPERAR CONTRASEÑA',
+                style: TextStyle(
+                  color: Color(0xffffffff),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30.0,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
               SizedBox(
-                height: 150.0,
+                height: 60.0,
               ),
               textFielNewPassword(),
               SizedBox(
@@ -31,9 +40,9 @@ class PasswordPage extends StatelessWidget {
               ),
               textFielConfirmarPassword(),
               SizedBox(
-                height: 50.0,
+                height: 60.0,
               ),
-              confirmarPasswordButton(),
+              confirmarPasswordButton(context),
             ],
           ),
         ),
@@ -55,10 +64,13 @@ class PasswordPage extends StatelessWidget {
     );
   }
 
-  Widget confirmarPasswordButton() {
+  Widget confirmarPasswordButton(context) {
     return buttonGeneral(
       text: 'Confirmar',
-      onPressed: () {},
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (__) => HomePage());
+        Navigator.pushReplacement(context, route);
+      },
       BGcolor: (0xff0DDF9F),
       borderColor: (0xff0DDF9F),
       fontGrosor: FontWeight.normal,

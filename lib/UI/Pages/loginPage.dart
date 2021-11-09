@@ -35,9 +35,9 @@ class LoginPage extends StatelessWidget {
                   height: 80.0,
                 ),
                 _textFielUser(),
-                _checkBox(),
+                //_checkBox(),
                 SizedBox(
-                  height: 10.0,
+                  height: 25.0,
                 ),
                 _textFielPassword(),
                 _recuperarPassword(context),
@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 _registrarse(context),
                 SizedBox(
-                  height: 45.0,
+                  height: 80.0,
                 ),
                 pie_de_pagina(),
               ],
@@ -97,6 +97,9 @@ class LoginPage extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        SizedBox(
+          width: 20.0,
+        ),
         Text(
           'Recordarme',
           style: TextStyle(
@@ -216,37 +219,46 @@ class textFieldGeneral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(top: 4.0),
       height: 40.0,
       decoration: BoxDecoration(
+        border: Border.all(
+          color: Color(0xff0DDF9F),
+          width: 3.0,
+        ),
         color: Color(0xffffffff),
         borderRadius: BorderRadius.circular(50.0),
       ),
       child: TextField(
+        cursorColor: Color(0xff0DDF9F),
         keyboardType: keyboarType,
         onChanged: onChanged,
         obscureText: obcureText,
         decoration: InputDecoration(
           labelText: labelText,
+          labelStyle: TextStyle(
+            color: Color(0xff716D6D),
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50.0),
             borderSide: BorderSide(
-              color: Color(0xff0DDF9F),
-              width: 2.0,
+              color: Color(0xffffffff),
+              width: 3.0,
               style: BorderStyle.solid,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50.0),
             borderSide: BorderSide(
-              color: Color(0xff0DDF9F),
-              width: 2.0,
+              color: Color(0xffffffff),
+              width: 3.0,
               style: BorderStyle.solid,
             ),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50.0),
             borderSide: BorderSide(
-              color: Color(0xff0DDF9F),
+              color: Color(0xffffffff),
               width: 5.0,
               style: BorderStyle.solid,
             ),

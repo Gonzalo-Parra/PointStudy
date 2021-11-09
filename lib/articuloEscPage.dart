@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
-var login = new EscuelaPage();
+var login = new ArticuloEscPage();
 
-class EscuelaPage extends StatelessWidget {
-  static String id = 'EscuelaPage';
+class ArticuloEscPage extends StatefulWidget {
+  static String id = 'ArticuloEscPage';
+
+  @override
+  State<ArticuloEscPage> createState() => _ArticuloEscPageState();
+}
+
+class _ArticuloEscPageState extends State<ArticuloEscPage> {
   List<String> images = [];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -14,9 +21,6 @@ class EscuelaPage extends StatelessWidget {
         backgroundColor: Color(0xffffffff),
         body: Center(
           child: ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.0,
-            ),
             children: [
               galeriaFotos(),
               SizedBox(
@@ -25,12 +29,9 @@ class EscuelaPage extends StatelessWidget {
               nombreEscuela(),
               direccionEscuela(),
               SizedBox(
-                height: 20.0,
+                height: 15.0,
               ),
-              Container(
-                height: 100.0,
-                child: historiaEscuela(),
-              ),
+              historiaEscuela(),
               SizedBox(
                 height: 20.0,
               ),
@@ -49,7 +50,7 @@ class EscuelaPage extends StatelessWidget {
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
           return new Image.network(
-            images[index],
+            'http://via.placeholder.com/350x150',
             fit: BoxFit.fill,
           );
         },
@@ -65,30 +66,53 @@ class EscuelaPage extends StatelessWidget {
   }
 
   Widget nombreEscuela() {
-    return Text(
-      'NOMBRE ESCUELA',
-      style: TextStyle(
-        color: Color(0xff716D6D),
-        fontSize: 30.0,
-        fontWeight: FontWeight.bold,
-      ),
+    return Row(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10.0,
+          ),
+          child: Text(
+            'NOMBRE ESCUELA',
+            style: TextStyle(
+              color: Color(0xff716D6D),
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
   Widget direccionEscuela() {
-    return Text(
-      'Direccion de la escuela',
-      style: TextStyle(
-        color: Color(0xff716D6D),
-        fontSize: 15.0,
-        fontWeight: FontWeight.w200,
-        fontStyle: FontStyle.italic,
-      ),
+    return Row(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10.0,
+          ),
+          child: Text(
+            'Direccion de la escuela',
+            style: TextStyle(
+              color: Color(0xff716D6D),
+              fontSize: 15.0,
+              fontWeight: FontWeight.w200,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
   Widget historiaEscuela() {
     return Container(
+      height: 100.0,
+      color: Colors.grey,
+      padding: EdgeInsets.symmetric(
+        horizontal: 10.0,
+      ),
       child: Text(
         'Breve Historia De la Escuela',
         style: TextStyle(
@@ -131,7 +155,7 @@ class EscuelaPage extends StatelessWidget {
         SizedBox(
           height: 10.0,
         ),
-        campoPrograma(),
+        campoTipoEsc(),
         SizedBox(
           height: 10.0,
         ),
@@ -141,7 +165,7 @@ class EscuelaPage extends StatelessWidget {
 
   Widget _campoDuracion() {
     return campoGeneral(
-      titulo: 'Duración de la cursada',
+      titulo: 'Duración cursada:',
       dato: 'dato',
     );
   }
@@ -160,9 +184,9 @@ class EscuelaPage extends StatelessWidget {
     );
   }
 
-  campoPrograma() {
+  campoTipoEsc() {
     return campoGeneral(
-      titulo: 'Programa del Titulo:',
+      titulo: 'Tipo:',
       dato: 'dato',
     );
   }
@@ -179,26 +203,31 @@ class campoGeneral extends StatelessWidget {
   });
 
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          '$titulo',
-          style: TextStyle(
-            color: Color(0xff716D6D),
-            fontSize: 15.0,
-            fontStyle: FontStyle.italic,
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 10.0,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            '$titulo',
+            style: TextStyle(
+              color: Color(0xff716D6D),
+              fontSize: 15.0,
+              fontStyle: FontStyle.italic,
+            ),
           ),
-        ),
-        Text(
-          '$dato',
-          style: TextStyle(
-            color: Color(0xff716D6D),
-            fontSize: 15.0,
-            fontStyle: FontStyle.italic,
+          Text(
+            '$dato',
+            style: TextStyle(
+              color: Color(0xff716D6D),
+              fontSize: 15.0,
+              fontStyle: FontStyle.italic,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

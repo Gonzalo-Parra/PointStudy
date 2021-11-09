@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pointstudy/UI/Pages/escuelaPage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
+import 'package:pointstudy/UI/Pages/passwordPage.dart';
 
 var login = new LoginPage();
 
@@ -9,95 +11,132 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xff642DD5),
-          title: Text(
-            'Busqueda de escuelas',
-            style: TextStyle(
-              color: Color(0xffffffff),
-            ),
-          ),
-          actions: [
-            buscarEscuelasIcon(),
-          ],
+        appBar: customAppbar(context),
+        drawer: customDrawer(context),
+      ),
+    );
+  }
+
+  AppBar customAppbar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Color(0xff642DD5),
+      title: Text(
+        'Busqueda de escuelas',
+        style: TextStyle(
+          color: Color(0xffffffff),
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.symmetric(
-              vertical: 10.0,
-            ),
-            children: [
-              SizedBox(
-                height: 20.0,
-              ),
-              Center(
-                child: Column(
-                  children: [
-                    login.Logotipo(),
-                    categoriasButton(),
-                    configuracionButton(),
-                    SizedBox(
-                      height: 450.0,
-                    ),
-                    cerrarSesionButton(context),
-                  ],
-                ),
-              ),
-            ],
+      ),
+      actions: [
+        buscarEscuelasIcon(context),
+      ],
+    );
+  }
+
+  Drawer customDrawer(BuildContext context) {
+    return Drawer(
+      child: Container(
+        color: Color(0xff642DD5),
+        child: ListView(
+          padding: EdgeInsets.symmetric(
+            vertical: 10.0,
           ),
+          children: [
+            SizedBox(
+              height: 20.0,
+            ),
+            Center(
+              child: Column(
+                children: [
+                  login.Logotipo(),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Divider(
+                    color: Color(0xffffffff),
+                  ),
+                  escuelasButton(context),
+                  Divider(
+                    color: Color(0xffffffff),
+                  ),
+                  configuracionButton(context),
+                  Divider(
+                    color: Color(0xffffffff),
+                  ),
+                  SizedBox(
+                    height: 395.0,
+                  ),
+                  cerrarSesionButton(context),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget buscarEscuelasIcon() {
-    return iconsGeneral(
-      icon: Icon(Icons.search),
+  Widget buscarEscuelasIcon(context) {
+    return IconButton(
+      icon: Icon(
+        Icons.search,
+        color: Color(0xffffffff),
+      ),
       onPressed: () {
-        Container(
-          width: 100.0,
-          height: 30.0,
-          color: Color(0xffffffff),
-          child: TextField(),
+        showSearch(
+          context: context,
+          delegate: searchData(),
         );
       },
       tooltip: 'Buscar',
-      color: (0xffffffff),
     );
   }
 
-  Widget categoriasButton() {
-    return ListTile(
-      onTap: () {},
-      title: Text(
-        'CATEGORIAS',
-        style: TextStyle(
-          color: Color(0xff716D6D),
-          fontWeight: FontWeight.bold,
-          fontSize: 15.0,
-        ),
-      ),
-      leading: Icon(
-        Icons.keyboard_arrow_down_outlined,
-        color: Color(0xff716D6D),
+  Widget escuelasButton(context) {
+    return TextButton(
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (__) => EscuelaPage());
+        Navigator.push(context, route);
+      },
+      child: Row(
+        children: [
+          Text(
+            'ESCUELAS',
+            style: TextStyle(
+              color: Color(0xffffffff),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Spacer(),
+          Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: Color(0xffffffff),
+          ),
+        ],
       ),
     );
   }
 
-  configuracionButton() {
-    return ListTile(
-      onTap: () {},
-      title: Text(
-        'CONFIGURACIÓN',
-        style: TextStyle(
-          color: Color(0xff716D6D),
-          fontWeight: FontWeight.bold,
-          fontSize: 15.0,
-        ),
-      ),
-      leading: Icon(
-        Icons.keyboard_arrow_down_outlined,
-        color: Color(0xff716D6D),
+  configuracionButton(context) {
+    return TextButton(
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (__) => PasswordPage());
+        Navigator.push(context, route);
+      },
+      child: Row(
+        children: [
+          Text(
+            'CAMBIAR CONTRASEÑA',
+            style: TextStyle(
+              color: Color(0xffffffff),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Spacer(),
+          Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: Color(0xffffffff),
+          ),
+        ],
       ),
     );
   }
@@ -115,26 +154,34 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class iconsGeneral extends StatelessWidget {
-  final icon;
-  final onPressed;
-  final String tooltip;
-  final color;
+class searchData extends SearchDelegate {
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () => this.query = '',
+        tooltip: 'Limpiar',
+      ),
+    ];
+  }
 
   @override
-  const iconsGeneral({
-    @required this.icon,
-    @required this.onPressed,
-    this.tooltip = '',
-    this.color = (0xffffffff),
-  });
-
-  Widget build(BuildContext context) {
+  Widget? buildLeading(BuildContext context) {
     return IconButton(
-      onPressed: onPressed,
-      icon: icon,
-      tooltip: tooltip,
-      color: Color(color),
+      icon: Icon(Icons.arrow_back_ios_new_outlined),
+      onPressed: () => this.close(context, null),
+      tooltip: 'Atras',
     );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Text('Results');
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return Text('Suggestions');
   }
 }
