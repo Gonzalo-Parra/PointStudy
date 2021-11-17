@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
-import 'package:pointstudy/articuloEscPage.dart';
+import 'package:pointstudy/UI/Pages/articuloEscPage.dart';
 
 var home = new HomePage();
 

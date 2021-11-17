@@ -169,6 +169,7 @@ class LoginPage extends StatelessWidget {
   Widget _registrarse(context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CupertinoButton(
           onPressed: () {
@@ -219,30 +220,26 @@ class textFieldGeneral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 4.0),
+      padding: EdgeInsets.all(3.0),
       height: 40.0,
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Color(0xff0DDF9F),
-          width: 3.0,
-        ),
         color: Color(0xffffffff),
         borderRadius: BorderRadius.circular(50.0),
       ),
       child: TextField(
-        cursorColor: Color(0xff0DDF9F),
         keyboardType: keyboarType,
         onChanged: onChanged,
         obscureText: obcureText,
+        cursorColor: Color(0xff0DDF9F),
         decoration: InputDecoration(
           labelText: labelText,
-          labelStyle: TextStyle(
+          floatingLabelStyle: TextStyle(
             color: Color(0xff716D6D),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50.0),
             borderSide: BorderSide(
-              color: Color(0xffffffff),
+              color: Color(0xff0DDF9F),
               width: 3.0,
               style: BorderStyle.solid,
             ),
@@ -250,16 +247,8 @@ class textFieldGeneral extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50.0),
             borderSide: BorderSide(
-              color: Color(0xffffffff),
+              color: Color(0xff0DDF9F),
               width: 3.0,
-              style: BorderStyle.solid,
-            ),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50.0),
-            borderSide: BorderSide(
-              color: Color(0xffffffff),
-              width: 5.0,
               style: BorderStyle.solid,
             ),
           ),

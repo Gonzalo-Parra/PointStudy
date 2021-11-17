@@ -5,7 +5,7 @@ import 'package:pointstudy/UI/Pages/loginPageOptions.dart';
 import 'package:pointstudy/UI/Pages/registerPage.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/escuelaPage.dart';
-import 'package:pointstudy/articuloEscPage.dart';
+import 'package:pointstudy/UI/Pages/articuloEscPage.dart';
 
 void main() {
   runApp(MyApp());

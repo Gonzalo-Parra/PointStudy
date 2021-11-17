@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pointstudy/Firebase/cloud.dart';
+import 'package:pointstudy/Firebase/consultas.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
 
@@ -6,6 +8,7 @@ var login = new LoginPage();
 
 class RegisterPage extends StatelessWidget {
   static String id = 'RegisterPage';
+  var consulta = new Database();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,15 +48,11 @@ class RegisterPage extends StatelessWidget {
               ),
               _textFieldPassword(),
               SizedBox(
-                height: 15.0,
-              ),
-              _textFieldRepPassword(),
-              SizedBox(
-                height: 50.0,
+                height: 60.0,
               ),
               _registarmeButton(context),
               SizedBox(
-                height: 85.0,
+                height: 65.0,
               ),
               login.pie_de_pagina(),
             ],
@@ -66,28 +65,28 @@ class RegisterPage extends StatelessWidget {
   Widget _textFieldNombre() {
     return textFieldGeneral(
       labelText: 'Nombre',
-      onChanged: (value) {},
+      onChanged: (Name) {},
     );
   }
 
   Widget _textFieldApellido() {
     return textFieldGeneral(
       labelText: 'Apellido',
-      onChanged: (value) {},
+      onChanged: (Lastname) {},
     );
   }
 
   Widget _textFieldNombreUs() {
     return textFieldGeneral(
       labelText: 'Nombre usuario',
-      onChanged: (value) {},
+      onChanged: (Username) {},
     );
   }
 
   Widget _textFieldEmail() {
     return textFieldGeneral(
       labelText: 'Dirección E-mail',
-      onChanged: (value) {},
+      onChanged: (Email) {},
       keyboarType: TextInputType.emailAddress,
     );
   }
@@ -95,15 +94,7 @@ class RegisterPage extends StatelessWidget {
   Widget _textFieldPassword() {
     return textFieldGeneral(
       labelText: 'Contraseña',
-      onChanged: (value) {},
-      obcureText: true,
-    );
-  }
-
-  Widget _textFieldRepPassword() {
-    return textFieldGeneral(
-      labelText: 'Confirmar contraseña',
-      onChanged: (value) {},
+      onChanged: (Password) {},
       obcureText: true,
     );
   }
