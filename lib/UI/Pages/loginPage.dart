@@ -1,12 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPageOptions.dart';
 import 'package:pointstudy/UI/Pages/passwordPage.dart';
 import 'package:pointstudy/UI/Pages/registerPage.dart';
+import 'package:pointstudy/Widgets/logotipo.dart';
+import 'package:pointstudy/Widgets/pie_de_pagina.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   static String id = "LoginPage";
+
+  LoginPage({Key? key}) : super(key: key);
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController email = new TextEditingController();
+  final TextEditingController password = new TextEditingController();
+
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -17,47 +37,49 @@ class LoginPage extends StatelessWidget {
             FocusScope.of(context).unfocus();
           },
           child: Center(
-            child: ListView(
-              padding: EdgeInsets.symmetric(
-                horizontal: 50.0,
+            child: Form(
+              key: _formKey,
+              child: ListView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 50.0,
+                ),
+                children: [
+                  SizedBox(
+                    height: 80.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Logotipo(),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 100.0,
+                  ),
+                  _textFielUser(),
+                  SizedBox(
+                    height: 25.0,
+                  ),
+                  _textFielPassword(),
+                  _recuperarPassword(context),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  _iniciarSesionButton(context),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  _continuarFormaButton(context),
+                  SizedBox(
+                    height: 50.0,
+                  ),
+                  _registrarse(context),
+                  SizedBox(
+                    height: 55.0,
+                  ),
+                  pie_de_pagina(),
+                ],
               ),
-              children: [
-                SizedBox(
-                  height: 80.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Logotipo(),
-                  ],
-                ),
-                SizedBox(
-                  height: 100.0,
-                ),
-                _textFielUser(),
-                //_checkBox(),
-                SizedBox(
-                  height: 25.0,
-                ),
-                _textFielPassword(),
-                _recuperarPassword(context),
-                SizedBox(
-                  height: 30.0,
-                ),
-                _iniciarSesionButton(context),
-                SizedBox(
-                  height: 15.0,
-                ),
-                _continuarFormaButton(context),
-                SizedBox(
-                  height: 50.0,
-                ),
-                _registrarse(context),
-                SizedBox(
-                  height: 55.0,
-                ),
-                pie_de_pagina(),
-              ],
             ),
           ),
         ),
@@ -65,57 +87,44 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget Logotipo() {
-    return Text(
-      "POINT STUDY",
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 40.0,
-        fontWeight: FontWeight.bold,
-        fontStyle: FontStyle.italic,
-      ),
-    );
-  }
-
   Widget _textFielUser() {
     return textFieldGeneral(
       labelText: 'Nombre Usuario / E-mail',
-      onChanged: (value) {},
+      keyboarType: TextInputType.emailAddress,
+      controller: email,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ('Este campo de texto es obligatorio');
+        }
+
+        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
+          return ('Por favor, ingrese un email valido');
+        }
+        return null;
+      },
+      onSaved: (value) {
+        email.text = value!;
+      },
     );
   }
 
   Widget _textFielPassword() {
     return textFieldGeneral(
       labelText: 'Contraseña',
-      onChanged: (value) {},
+      controller: password,
+      validator: (value) {
+        RegExp regex = new RegExp(r'^.{8,}$');
+        if (value!.isEmpty) {
+          return ("Este campo de texto es obligatorio");
+        }
+        if (!regex.hasMatch(value)) {
+          return ("Ingrese una contraseña valida, minimo 8 caracteres)");
+        }
+      },
+      onSaved: (value) {
+        password.text = value!;
+      },
       obcureText: true,
-    );
-  }
-
-  Widget _checkBox() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          width: 20.0,
-        ),
-        Text(
-          'Recordarme',
-          style: TextStyle(
-            color: Color(0xffffffff),
-          ),
-        ),
-        Checkbox(
-          value: false,
-          onChanged: (valueIn) {},
-          side: BorderSide(
-            color: Color(0xff716D6D),
-            style: BorderStyle.solid,
-            width: 2.0,
-          ),
-        ),
-      ],
     );
   }
 
@@ -145,8 +154,9 @@ class LoginPage extends StatelessWidget {
     return buttonGeneral(
       text: 'Iniciar sesión',
       onPressed: () {
-        Route route = MaterialPageRoute(builder: (__) => HomePage());
-        Navigator.pushReplacement(context, route);
+        logIn(email.text, password.text);
+        /*Route route = MaterialPageRoute(builder: (__) => HomePage());
+        Navigator.pushReplacement(context, route);*/
       },
       BGcolor: (0xff0DDF9F),
       borderColor: (0xff0DDF9F),
@@ -189,30 +199,36 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget pie_de_pagina() {
-    return Container(
-      alignment: Alignment.center,
-      child: Text(
-        'Copyright © Gonzalo Parra',
-        style: TextStyle(
-          color: Color(0xffffffff),
-          fontSize: 12.0,
-          fontWeight: FontWeight.w100,
-          fontStyle: FontStyle.italic,
-        ),
-      ),
-    );
+  void logIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((uid) => {
+                Fluttertoast.showToast(msg: 'Inicio sesión exitosamente'),
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => HomePage()))
+              })
+          .catchError((e) {
+        throw Fluttertoast.showToast(msg: e!.message);
+      });
+    }
+    ;
   }
 }
 
 class textFieldGeneral extends StatelessWidget {
   final String labelText;
-  final onChanged;
+  final TextEditingController controller;
+  final validator;
+  final onSaved;
   final bool obcureText;
   final TextInputType keyboarType;
+
   const textFieldGeneral({
     @required this.labelText = '',
-    @required this.onChanged = '',
+    required this.controller,
+    @required this.validator,
+    @required this.onSaved,
     this.obcureText = false,
     this.keyboarType = TextInputType.text,
   });
@@ -226,9 +242,11 @@ class textFieldGeneral extends StatelessWidget {
         color: Color(0xffffffff),
         borderRadius: BorderRadius.circular(50.0),
       ),
-      child: TextField(
+      child: TextFormField(
+        controller: controller,
+        validator: validator,
+        onSaved: onSaved,
         keyboardType: keyboarType,
-        onChanged: onChanged,
         obscureText: obcureText,
         cursorColor: Color(0xff0DDF9F),
         decoration: InputDecoration(

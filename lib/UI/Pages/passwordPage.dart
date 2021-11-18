@@ -8,6 +8,7 @@ var login = new LoginPage();
 
 class PasswordPage extends StatelessWidget {
   static String id = "PasswordPage";
+  final TextEditingController newPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -54,8 +55,8 @@ class PasswordPage extends StatelessWidget {
   Widget textFielNewPassword() {
     return textFieldGeneral(
       labelText: 'Nueva contraseña',
-      onChanged: (value) {},
       obcureText: true,
+      controller: newPassword,
     );
   }
 

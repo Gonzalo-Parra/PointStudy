@@ -20,7 +20,7 @@ class LoginPageOptions extends StatelessWidget {
             SizedBox(
               height: 80.0,
             ),
-            login.Logotipo(),
+            //login.Logotipo(),
             SizedBox(
               height: 175.0,
             ),
@@ -32,7 +32,7 @@ class LoginPageOptions extends StatelessWidget {
             SizedBox(
               height: 260.0,
             ),
-            login.pie_de_pagina(),
+            //login.pie_de_pagina(),
           ],
         ),
       ),

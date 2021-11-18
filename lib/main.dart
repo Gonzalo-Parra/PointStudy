@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pointstudy/UI/Pages/passwordPage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
@@ -7,7 +8,9 @@ import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/escuelaPage.dart';
 import 'package:pointstudy/UI/Pages/articuloEscPage.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 

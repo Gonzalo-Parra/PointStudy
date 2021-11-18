@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pointstudy/UI/Pages/escuelaPage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
 import 'package:pointstudy/UI/Pages/passwordPage.dart';
-
-var login = new LoginPage();
+import 'package:pointstudy/Widgets/logotipo.dart';
 
 class HomePage extends StatelessWidget {
   static String id = 'HomePage';
@@ -47,7 +46,7 @@ class HomePage extends StatelessWidget {
             Center(
               child: Column(
                 children: [
-                  login.Logotipo(),
+                  Logotipo(),
                   SizedBox(
                     height: 20.0,
                   ),

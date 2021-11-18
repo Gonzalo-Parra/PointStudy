@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:pointstudy/Firebase/cloud.dart';
-import 'package:pointstudy/Firebase/consultas.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
-
-var login = new LoginPage();
+import 'package:pointstudy/Widgets/logotipo.dart';
+import 'package:pointstudy/Widgets/pie_de_pagina.dart';
 
 class RegisterPage extends StatelessWidget {
   static String id = 'RegisterPage';
-  var consulta = new Database();
+  final TextEditingController name = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
+  final TextEditingController userName = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,7 +29,7 @@ class RegisterPage extends StatelessWidget {
               SizedBox(
                 height: 80.0,
               ),
-              login.Logotipo(),
+              Logotipo(),
               SizedBox(
                 height: 50.0,
               ),
@@ -54,7 +57,7 @@ class RegisterPage extends StatelessWidget {
               SizedBox(
                 height: 65.0,
               ),
-              login.pie_de_pagina(),
+              pie_de_pagina(),
             ],
           ),
         ),
@@ -65,28 +68,28 @@ class RegisterPage extends StatelessWidget {
   Widget _textFieldNombre() {
     return textFieldGeneral(
       labelText: 'Nombre',
-      onChanged: (Name) {},
+      controller: name,
     );
   }
 
   Widget _textFieldApellido() {
     return textFieldGeneral(
       labelText: 'Apellido',
-      onChanged: (Lastname) {},
+      controller: lastName,
     );
   }
 
   Widget _textFieldNombreUs() {
     return textFieldGeneral(
       labelText: 'Nombre usuario',
-      onChanged: (Username) {},
+      controller: userName,
     );
   }
 
   Widget _textFieldEmail() {
     return textFieldGeneral(
       labelText: 'Dirección E-mail',
-      onChanged: (Email) {},
+      controller: email,
       keyboarType: TextInputType.emailAddress,
     );
   }
@@ -94,7 +97,7 @@ class RegisterPage extends StatelessWidget {
   Widget _textFieldPassword() {
     return textFieldGeneral(
       labelText: 'Contraseña',
-      onChanged: (Password) {},
+      controller: password,
       obcureText: true,
     );
   }
