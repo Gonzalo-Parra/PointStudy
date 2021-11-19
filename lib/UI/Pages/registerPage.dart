@@ -101,7 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
         return null;
       },
       onSaved: (value) {
-        lastName.text = value!;
+        name.text = value!;
       },
     );
   }

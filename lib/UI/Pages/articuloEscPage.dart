@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pointstudy/Firebase/userModel.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
@@ -13,6 +17,9 @@ class ArticuloEscPage extends StatefulWidget {
 
 class _ArticuloEscPageState extends State<ArticuloEscPage> {
   List<String> images = [];
+
+  User? user = FirebaseAuth.instance.currentUser;
+  userModel usermodel = userModel();
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +80,7 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
             horizontal: 10.0,
           ),
           child: Text(
-            'NOMBRE ESCUELA',
+            'Nombre',
             style: TextStyle(
               color: Color(0xff716D6D),
               fontSize: 30.0,
@@ -93,7 +100,7 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
             horizontal: 10.0,
           ),
           child: Text(
-            'Direccion de la escuela',
+            'Direccion',
             style: TextStyle(
               color: Color(0xff716D6D),
               fontSize: 15.0,
@@ -114,7 +121,7 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
         horizontal: 10.0,
       ),
       child: Text(
-        'Breve Historia De la Escuela',
+        'Historia',
         style: TextStyle(
           color: Color(0xff000000),
           fontSize: 25.0,

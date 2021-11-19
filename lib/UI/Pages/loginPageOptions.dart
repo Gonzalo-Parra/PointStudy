@@ -42,10 +42,7 @@ class LoginPageOptions extends StatelessWidget {
   Widget _inicio_sesion_facebok(context) {
     return buttonGeneral(
       text: 'Continuar con Facebook',
-      onPressed: () {
-        Route route = MaterialPageRoute(builder: (__) => HomePage());
-        Navigator.pushReplacement(context, route);
-      },
+      onPressed: () {},
       BGcolor: (0xff0DDF9F),
       borderColor: (0xff0DDF9F),
     );
@@ -54,10 +51,7 @@ class LoginPageOptions extends StatelessWidget {
   Widget _inicio_sesion_google(context) {
     return buttonGeneral(
       text: 'Continuar con Google',
-      onPressed: () {
-        Route route = MaterialPageRoute(builder: (__) => HomePage());
-        Navigator.pushReplacement(context, route);
-      },
+      onPressed: () {},
       BGcolor: (0xff0DDF9F),
       borderColor: (0xff0DDF9F),
     );

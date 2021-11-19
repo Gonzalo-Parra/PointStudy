@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
           return ("Este campo de texto es obligatorio");
         }
         if (!regex.hasMatch(value)) {
-          return ("Ingrese una contraseña valida, minimo 8 caracteres)");
+          return ("Contraseña invalida, minimo 8 caracteres");
         }
       },
       onSaved: (value) {
@@ -155,8 +155,6 @@ class _LoginPageState extends State<LoginPage> {
       text: 'Iniciar sesión',
       onPressed: () {
         logIn(email.text, password.text);
-        /*Route route = MaterialPageRoute(builder: (__) => HomePage());
-        Navigator.pushReplacement(context, route);*/
       },
       BGcolor: (0xff0DDF9F),
       borderColor: (0xff0DDF9F),
@@ -235,46 +233,41 @@ class textFieldGeneral extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(3.0),
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Color(0xffffffff),
-        borderRadius: BorderRadius.circular(50.0),
+    return TextFormField(
+      controller: controller,
+      validator: validator,
+      onSaved: onSaved,
+      keyboardType: keyboarType,
+      obscureText: obcureText,
+      cursorColor: Color(0xff0DDF9F),
+      decoration: InputDecoration(
+        labelText: labelText,
+        labelStyle: TextStyle(
+          color: Color(0xffffffff),
+        ),
+        floatingLabelStyle: TextStyle(
+          color: Color(0xffffffff),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50.0),
+          borderSide: BorderSide(
+            color: Color(0xff0DDF9F),
+            width: 3.0,
+            style: BorderStyle.solid,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50.0),
+          borderSide: BorderSide(
+            color: Color(0xff0DDF9F),
+            width: 3.0,
+            style: BorderStyle.solid,
+          ),
+        ),
       ),
-      child: TextFormField(
-        controller: controller,
-        validator: validator,
-        onSaved: onSaved,
-        keyboardType: keyboarType,
-        obscureText: obcureText,
-        cursorColor: Color(0xff0DDF9F),
-        decoration: InputDecoration(
-          labelText: labelText,
-          floatingLabelStyle: TextStyle(
-            color: Color(0xff716D6D),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50.0),
-            borderSide: BorderSide(
-              color: Color(0xff0DDF9F),
-              width: 3.0,
-              style: BorderStyle.solid,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50.0),
-            borderSide: BorderSide(
-              color: Color(0xff0DDF9F),
-              width: 3.0,
-              style: BorderStyle.solid,
-            ),
-          ),
-        ),
-        style: TextStyle(
-          color: Color(0xff716D6D),
-          fontSize: 15.0,
-        ),
+      style: TextStyle(
+        color: Color(0xffffffff),
+        fontSize: 15.0,
       ),
     );
   }
@@ -314,7 +307,7 @@ class buttonGeneral extends StatelessWidget {
           borderRadius: BorderRadius.circular(50.0),
           side: BorderSide(
             color: Color(borderColor),
-            width: 2.0,
+            width: 3.0,
             style: BorderStyle.solid,
           ),
         ),

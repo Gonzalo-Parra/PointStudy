@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
 import 'package:pointstudy/UI/Pages/articuloEscPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 var home = new HomePage();
 
@@ -14,57 +15,8 @@ class EscuelaPage extends StatefulWidget {
 }
 
 class _EscuelaPageState extends State<EscuelaPage> {
-  List escuelas = [
-    Escuela(
-        'EPET 20',
-        'Lanín 2020',
-        'BLABLABLABLABLABLABLABLABLABLABLABLABBLABALBABALABLBALBALBALABLABBL',
-        '6 Años',
-        'Técnico Programador',
-        'Desarrollo Web'),
-    Escuela(
-        'EPET 20',
-        'Lanín 2020',
-        'BLABLABLABLABLABLABLABLABLABLABLABLABBLABALBABALABLBALBALBALABLABBL',
-        '6 Años',
-        'Técnico Programador',
-        'Desarrollo Web'),
-    Escuela(
-        'EPET 20',
-        'Lanín 2020',
-        'BLABLABLABLABLABLABLABLABLABLABLABLABBLABALBABALABLBALBALBALABLABBL',
-        '6 Años',
-        'Técnico Programador',
-        'Desarrollo Web'),
-    Escuela(
-        'EPET 20',
-        'Lanín 2020',
-        'BLABLABLABLABLABLABLABLABLABLABLABLABBLABALBABALABLBALBALBALABLABBL',
-        '6 Años',
-        'Técnico Programador',
-        'Desarrollo Web'),
-    Escuela(
-        'EPET 20',
-        'Lanín 2020',
-        'BLABLABLABLABLABLABLABLABLABLABLABLABBLABALBABALABLBALBALBALABLABBL',
-        '6 Años',
-        'Técnico Programador',
-        'Desarrollo Web'),
-    Escuela(
-        'EPET 20',
-        'Lanín 2020',
-        'BLABLABLABLABLABLABLABLABLABLABLABLABBLABALBABALABLBALBALBALABLABBL',
-        '6 Años',
-        'Técnico Programador',
-        'Desarrollo Web'),
-    Escuela(
-        'EPET 20',
-        'Lanín 2020',
-        'BLABLABLABLABLABLABLABLABLABLABLABLABBLABALBABALABLBALBALBALABLABBL',
-        '6 Años',
-        'Técnico Programador',
-        'Desarrollo Web'),
-  ];
+  List escuelas = [];
+  final _firebase = FirebaseFirestore.instance;
   List categorias = [
     'TODAS',
     'PRIMARIA',
@@ -132,7 +84,6 @@ class _EscuelaPageState extends State<EscuelaPage> {
             ),
           ),
           child: DropdownButton<String>(
-            hint: Text("Filtré por categoría"),
             onChanged: (newValue) {
               setState(() {
                 dropdownValue = newValue!;
@@ -171,32 +122,42 @@ class _EscuelaPageState extends State<EscuelaPage> {
   }
 
   Widget listSchool() {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: escuelas.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: Color(0xff716D6D),
-              width: 0.5,
-            ),
-          ),
-          onTap: () {
-            Route route = MaterialPageRoute(builder: (_) => ArticuloEscPage());
-            Navigator.push(context, route);
-          },
-          title: Text(
-            escuelas[index].name,
-            style: TextStyle(
-              color: Color(0xff716D6D),
-              fontSize: 25.0,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          trailing: Icon(Icons.keyboard_arrow_right_outlined),
-        );
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firebase.collection('escuelas').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                QueryDocumentSnapshot x = snapshot.data!.docs[index];
+                return ListTile(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Color(0xff716D6D),
+                      width: 0.5,
+                    ),
+                  ),
+                  onTap: () {
+                    Route route =
+                        MaterialPageRoute(builder: (_) => ArticuloEscPage());
+                    Navigator.push(context, route);
+                  },
+                  title: Text(
+                    x['name'],
+                    style: TextStyle(
+                      color: Color(0xff716D6D),
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  trailing: Icon(Icons.keyboard_arrow_right_outlined),
+                );
+              });
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
       },
     );
   }
@@ -204,18 +165,18 @@ class _EscuelaPageState extends State<EscuelaPage> {
 
 class Escuela {
   late String name;
-  late String direccion;
+  late String direction;
   late String history;
-  late String durationCurs;
+  late String ages;
   late String title;
-  late String vocationFollow;
+  late String vocationsFollow;
 
-  Escuela(name, direction, history, durationCurs, title, vocationFollow) {
+  Escuela(name, direction, history, ages, title, vocationsFollow) {
     this.name = name;
-    this.direccion = direction;
+    this.direction = direction;
     this.history = history;
-    this.durationCurs = durationCurs;
+    this.ages = ages;
     this.title = title;
-    this.vocationFollow = vocationFollow;
+    this.vocationsFollow = vocationsFollow;
   }
 }

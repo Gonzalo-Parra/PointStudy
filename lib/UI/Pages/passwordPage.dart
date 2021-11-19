@@ -63,10 +63,7 @@ class PasswordPage extends StatelessWidget {
   Widget confirmarPasswordButton(context) {
     return buttonGeneral(
       text: 'Confirmar',
-      onPressed: () {
-        Route route = MaterialPageRoute(builder: (__) => HomePage());
-        Navigator.pushReplacement(context, route);
-      },
+      onPressed: () {},
       BGcolor: (0xff0DDF9F),
       borderColor: (0xff0DDF9F),
       fontGrosor: FontWeight.normal,
