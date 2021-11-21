@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:pointstudy/Firebase/userModel.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
@@ -16,10 +14,8 @@ class ArticuloEscPage extends StatefulWidget {
 }
 
 class _ArticuloEscPageState extends State<ArticuloEscPage> {
+  final _firebase = FirebaseFirestore.instance;
   List<String> images = [];
-
-  User? user = FirebaseAuth.instance.currentUser;
-  userModel usermodel = userModel();
 
   @override
   Widget build(BuildContext context) {
@@ -27,23 +23,41 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
       child: Scaffold(
         backgroundColor: Color(0xffffffff),
         body: Center(
-          child: ListView(
-            children: [
-              galeriaFotos(),
-              SizedBox(
-                height: 30.0,
-              ),
-              nombreEscuela(),
-              direccionEscuela(),
-              SizedBox(
-                height: 15.0,
-              ),
-              historiaEscuela(),
-              SizedBox(
-                height: 20.0,
-              ),
-              datosEscuela(),
-            ],
+          child: StreamBuilder<QuerySnapshot>(
+            stream: _firebase.collection('escuelas').snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    QueryDocumentSnapshot dataSchool =
+                        snapshot.data!.docs[index];
+                    return Column(
+                      children: [
+                        galeriaFotos(),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        nombreEscuela(dataSchool),
+                        direccionEscuela(dataSchool),
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        historiaEscuela(dataSchool),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        datosEscuela(dataSchool),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
           ),
         ),
       ),
@@ -72,7 +86,7 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
     );
   }
 
-  Widget nombreEscuela() {
+  Widget nombreEscuela(dataSchool) {
     return Row(
       children: [
         Padding(
@@ -80,7 +94,7 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
             horizontal: 10.0,
           ),
           child: Text(
-            'Nombre',
+            dataSchool['name'],
             style: TextStyle(
               color: Color(0xff716D6D),
               fontSize: 30.0,
@@ -92,7 +106,7 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
     );
   }
 
-  Widget direccionEscuela() {
+  Widget direccionEscuela(dataSchool) {
     return Row(
       children: [
         Padding(
@@ -100,7 +114,7 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
             horizontal: 10.0,
           ),
           child: Text(
-            'Direccion',
+            dataSchool['direction'],
             style: TextStyle(
               color: Color(0xff716D6D),
               fontSize: 15.0,
@@ -113,32 +127,31 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
     );
   }
 
-  Widget historiaEscuela() {
+  Widget historiaEscuela(dataSchool) {
     return Container(
       height: 100.0,
-      color: Colors.grey,
       padding: EdgeInsets.symmetric(
         horizontal: 10.0,
       ),
       child: Text(
-        'Historia',
+        dataSchool['history'],
         style: TextStyle(
           color: Color(0xff000000),
           fontSize: 25.0,
-          fontWeight: FontWeight.w200,
+          fontWeight: FontWeight.w300,
         ),
       ),
     );
   }
 
-  Widget datosEscuela() {
+  Widget datosEscuela(dataSchool) {
     return Column(
       children: [
         Divider(color: Color(0xff716D6D)),
         SizedBox(
           height: 10.0,
         ),
-        _campoDuracion(),
+        _campoDuracion(dataSchool),
         SizedBox(
           height: 10.0,
         ),
@@ -146,7 +159,7 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
         SizedBox(
           height: 10.0,
         ),
-        _campoTitulo(),
+        _campoTitulo(dataSchool),
         SizedBox(
           height: 15.0,
         ),
@@ -154,7 +167,7 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
         SizedBox(
           height: 10.0,
         ),
-        campoVocaciones(),
+        campoVocaciones(dataSchool),
         SizedBox(
           height: 10.0,
         ),
@@ -162,39 +175,40 @@ class _ArticuloEscPageState extends State<ArticuloEscPage> {
         SizedBox(
           height: 10.0,
         ),
-        campoTipoEsc(),
+        campoTipoEsc(dataSchool),
         SizedBox(
           height: 10.0,
         ),
+        Divider(color: Color(0xff716D6D))
       ],
     );
   }
 
-  Widget _campoDuracion() {
+  Widget _campoDuracion(dataSchool) {
     return campoGeneral(
       titulo: 'Duración cursada:',
-      dato: 'dato',
+      dato: dataSchool['ages'],
     );
   }
 
-  Widget _campoTitulo() {
+  Widget _campoTitulo(dataSchool) {
     return campoGeneral(
       titulo: 'Titulo:',
-      dato: 'dato',
+      dato: dataSchool['title'],
     );
   }
 
-  Widget campoVocaciones() {
+  Widget campoVocaciones(dataSchool) {
     return campoGeneral(
       titulo: 'Vocaciones a seguir:',
-      dato: 'dato',
+      dato: dataSchool['vocationsFollow'],
     );
   }
 
-  campoTipoEsc() {
+  Widget campoTipoEsc(dataSchool) {
     return campoGeneral(
       titulo: 'Tipo:',
-      dato: 'dato',
+      dato: dataSchool['typeSchool'],
     );
   }
 }

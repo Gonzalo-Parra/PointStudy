@@ -57,12 +57,12 @@ class HomePage extends StatelessWidget {
                   Divider(
                     color: Color(0xffffffff),
                   ),
-                  configuracionButton(context),
+                  /*configuracionButton(context),
                   Divider(
                     color: Color(0xffffffff),
-                  ),
+                  ),*/
                   SizedBox(
-                    height: 395.0,
+                    height: 460.0,
                   ),
                   cerrarSesionButton(context),
                 ],
@@ -115,7 +115,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  configuracionButton(context) {
+  /*configuracionButton(context) {
     return TextButton(
       onPressed: () {
         Route route = MaterialPageRoute(builder: (__) => PasswordPage());
@@ -138,7 +138,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
-  }
+  }*/
 
   Widget cerrarSesionButton(context) {
     return buttonGeneral(

@@ -15,7 +15,6 @@ class EscuelaPage extends StatefulWidget {
 }
 
 class _EscuelaPageState extends State<EscuelaPage> {
-  List escuelas = [];
   final _firebase = FirebaseFirestore.instance;
   List categorias = [
     'TODAS',
@@ -131,7 +130,7 @@ class _EscuelaPageState extends State<EscuelaPage> {
               shrinkWrap: true,
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
-                QueryDocumentSnapshot x = snapshot.data!.docs[index];
+                QueryDocumentSnapshot dataSchool = snapshot.data!.docs[index];
                 return ListTile(
                   shape: RoundedRectangleBorder(
                     side: BorderSide(
@@ -145,7 +144,7 @@ class _EscuelaPageState extends State<EscuelaPage> {
                     Navigator.push(context, route);
                   },
                   title: Text(
-                    x['name'],
+                    dataSchool['name'],
                     style: TextStyle(
                       color: Color(0xff716D6D),
                       fontSize: 25.0,
@@ -160,23 +159,5 @@ class _EscuelaPageState extends State<EscuelaPage> {
         }
       },
     );
-  }
-}
-
-class Escuela {
-  late String name;
-  late String direction;
-  late String history;
-  late String ages;
-  late String title;
-  late String vocationsFollow;
-
-  Escuela(name, direction, history, ages, title, vocationsFollow) {
-    this.name = name;
-    this.direction = direction;
-    this.history = history;
-    this.ages = ages;
-    this.title = title;
-    this.vocationsFollow = vocationsFollow;
   }
 }

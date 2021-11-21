@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 var login = new LoginPage();
+final google = GoogleSignIn();
 
 class LoginPageOptions extends StatelessWidget {
   static String id = "LoginPageOptions";

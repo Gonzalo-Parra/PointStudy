@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFielUser() {
     return textFieldGeneral(
-      labelText: 'Nombre Usuario / E-mail',
+      labelText: 'E-mail',
       keyboarType: TextInputType.emailAddress,
       controller: email,
       validator: (value) {
