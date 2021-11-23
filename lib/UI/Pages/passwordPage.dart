@@ -1,14 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
 import 'package:pointstudy/UI/Pages/articuloEscPage.dart';
 
 var login = new LoginPage();
 
-class PasswordPage extends StatelessWidget {
+class PasswordPage extends StatefulWidget {
   static String id = "PasswordPage";
+
+  @override
+  State<PasswordPage> createState() => _PasswordPageState();
+}
+
+class _PasswordPageState extends State<PasswordPage> {
+  final _formKey = GlobalKey<FormState>();
+
   final TextEditingController newPassword = TextEditingController();
+  final TextEditingController confirmPassword = TextEditingController();
+
+  final _auth = FirebaseAuth.instance;
+
+  final FirebaseFirestore _firebase = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,32 +36,39 @@ class PasswordPage extends StatelessWidget {
             FocusScope.of(context).unfocus();
           },
           child: Center(
-            child: ListView(
-              padding: EdgeInsets.symmetric(
-                horizontal: 50.0,
-              ),
-              children: [
-                SizedBox(
-                  height: 80.0,
+            child: Form(
+              key: _formKey,
+              child: ListView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 50.0,
                 ),
-                Text(
-                  'RECUPERAR CONTRASEÑA',
-                  style: TextStyle(
-                    color: Color(0xffffffff),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30.0,
-                    fontStyle: FontStyle.italic,
+                children: [
+                  SizedBox(
+                    height: 80.0,
                   ),
-                ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                textFielNewPassword(),
-                SizedBox(
-                  height: 25.0,
-                ),
-                confirmarPasswordButton(context),
-              ],
+                  Text(
+                    'RECUPERAR CONTRASEÑA',
+                    style: TextStyle(
+                      color: Color(0xffffffff),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.0,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  textFielNewPassword(),
+                  SizedBox(
+                    height: 25.0,
+                  ),
+                  textFielConfirmPassword(),
+                  SizedBox(
+                    height: 25.0,
+                  ),
+                  confirmarPasswordButton(),
+                ],
+              ),
             ),
           ),
         ),
@@ -57,10 +81,42 @@ class PasswordPage extends StatelessWidget {
       labelText: 'Nueva contraseña',
       obcureText: true,
       controller: newPassword,
+      validator: (value) {
+        RegExp regex = new RegExp(r'^.{8,}$');
+        if (value!.isEmpty) {
+          return ("Este campo de texto es obligatorio");
+        }
+        if (!regex.hasMatch(value)) {
+          return ("Contraseña invalida, minimo 8 caracteres");
+        }
+      },
+      onSaved: (value) {
+        newPassword.text = value!;
+      },
     );
   }
 
-  Widget confirmarPasswordButton(context) {
+  Widget textFielConfirmPassword() {
+    return textFieldGeneral(
+      labelText: 'Confirme la nueva contraseña',
+      obcureText: true,
+      controller: confirmPassword,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Este campo de texto es obligatorio");
+        }
+        if (confirmPassword.text != newPassword.text) {
+          return 'Las contraseñas no coinciden';
+        }
+        return null;
+      },
+      onSaved: (value) {
+        confirmPassword.text = value!;
+      },
+    );
+  }
+
+  Widget confirmarPasswordButton() {
     return buttonGeneral(
       text: 'Confirmar',
       onPressed: () {},

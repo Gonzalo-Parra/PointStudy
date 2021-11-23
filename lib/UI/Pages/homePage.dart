@@ -1,12 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pointstudy/Firebase/userModel.dart';
 import 'package:pointstudy/UI/Pages/escuelaPage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
 import 'package:pointstudy/UI/Pages/passwordPage.dart';
 import 'package:pointstudy/Widgets/logotipo.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static String id = 'HomePage';
+
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  User? user = FirebaseAuth.instance.currentUser;
+  userModel loggedInUser = userModel();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("usuarios")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = userModel.fromMap(value.data());
+      setState(() {});
+    });
+  }
+
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -57,14 +82,14 @@ class HomePage extends StatelessWidget {
                   Divider(
                     color: Color(0xffffffff),
                   ),
-                  /*configuracionButton(context),
+                  configuracionButton(context),
                   Divider(
                     color: Color(0xffffffff),
-                  ),*/
+                  ),
                   SizedBox(
                     height: 460.0,
                   ),
-                  cerrarSesionButton(context),
+                  cerrarSesionButton(),
                 ],
               ),
             ),
@@ -115,7 +140,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  /*configuracionButton(context) {
+  configuracionButton(context) {
     return TextButton(
       onPressed: () {
         Route route = MaterialPageRoute(builder: (__) => PasswordPage());
@@ -138,18 +163,24 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
-  }*/
+  }
 
-  Widget cerrarSesionButton(context) {
+  Widget cerrarSesionButton() {
     return buttonGeneral(
       text: 'Cerrar sesión',
       onPressed: () {
-        Route route = MaterialPageRoute(builder: (__) => LoginPage());
-        Navigator.pushReplacement(context, route);
+        logout(context);
       },
       BGcolor: (0xffDF0D0D),
       borderColor: (0xffDF0D0D),
     );
+  }
+
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
+    Fluttertoast.showToast(msg: 'Sesión cerrada');
   }
 }
 

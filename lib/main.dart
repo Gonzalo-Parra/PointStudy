@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Point Study',
-      initialRoute: EscuelaPage.id,
+      initialRoute: LoginPage.id,
       routes: {
         LoginPage.id: (context) => LoginPage(),
         LoginPageOptions.id: (context) => LoginPageOptions(),

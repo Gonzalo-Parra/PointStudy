@@ -133,10 +133,7 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisSize: MainAxisSize.min,
       children: [
         CupertinoButton(
-          onPressed: () {
-            Route route = MaterialPageRoute(builder: (__) => PasswordPage());
-            Navigator.push(context, route);
-          },
+          onPressed: () {},
           child: Text(
             '¿Olvidaste tu contraseña?',
             style: TextStyle(
