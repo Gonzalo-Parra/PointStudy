@@ -99,7 +99,7 @@ class _EscuelaPageState extends State<EscuelaPage> {
                     color: Color(0xffffffff),
                   ),
                   SizedBox(
-                    height: 460.0,
+                    height: 400.0,
                   ),
                   cerrarSesionButton(),
                 ],
@@ -152,7 +152,7 @@ class _EscuelaPageState extends State<EscuelaPage> {
     );
   }
 
-  configuracionButton(context) {
+  Widget configuracionButton(context) {
     return TextButton(
       onPressed: () {
         Route route = MaterialPageRoute(builder: (__) => PasswordPage());

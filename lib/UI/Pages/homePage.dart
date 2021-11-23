@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                     color: Color(0xffffffff),
                   ),
                   SizedBox(
-                    height: 460.0,
+                    height: 400.0,
                   ),
                   cerrarSesionButton(),
                 ],

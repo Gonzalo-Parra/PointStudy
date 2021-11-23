@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:pointstudy/UI/Pages/homePage.dart';
 import 'package:pointstudy/UI/Pages/loginPage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pointstudy/Widgets/logotipo.dart';
+import 'package:pointstudy/Widgets/pie_de_pagina.dart';
 
 var login = new LoginPage();
 final google = GoogleSignIn();
@@ -23,7 +25,7 @@ class LoginPageOptions extends StatelessWidget {
             SizedBox(
               height: 80.0,
             ),
-            //login.Logotipo(),
+            Logotipo(),
             SizedBox(
               height: 175.0,
             ),
@@ -35,7 +37,7 @@ class LoginPageOptions extends StatelessWidget {
             SizedBox(
               height: 260.0,
             ),
-            //login.pie_de_pagina(),
+            pie_de_pagina(),
           ],
         ),
       ),
